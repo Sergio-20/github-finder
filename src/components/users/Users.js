@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import Spinner from "../layout/Spinner";
 import UserItem from "./UserItem";
 
 /* Variables */
@@ -8,16 +10,24 @@ const gridLayout = {
   gridGap: "1rem"
 };
 
-class Users extends Component {
-  render() {
+const Users = ({ loading, users }) => {
+  if (loading) {
+    return <Spinner />;
+  } else {
     return (
       <div style={gridLayout}>
-        {this.props.users.map(user => (
+        {users.map(user => (
           <UserItem key={user.id} user={user} />
         ))}
       </div>
     );
   }
-}
+};
+
+/* PropTypes */
+Users.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  users: PropTypes.array.isRequired
+};
 
 export default Users;
